@@ -151,7 +151,5 @@ def skills_info(city=None, state=None):
 
     final_plot.set_ylabel('Percentage Appearing in Job Ads')
     fig = final_plot.get_figure()  # Have to convert the pandas plot object to a matplotlib object
-    print "TEST !!!!"
-
     plt.show(fig)
     return fig, final_frame  # End of the function
