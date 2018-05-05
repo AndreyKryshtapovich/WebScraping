@@ -11,8 +11,10 @@ from textCleaner import text_cleaner
 
 
 def tutBySkillsInfo(region_code=None):
-    final_job = 'data+scientist'
+    # final_job = 'data+scientist'
     # final_job = 'java+developer'
+    # final_job = 'software+engineer'
+    final_job = 'software+engineer'
     region = str(region_code)
     if region_code is not None and region.isdigit():
         final_site_list = ['https://jobs.tut.by/search/vacancy?text=', final_job, '&area=', region]
@@ -54,8 +56,8 @@ def tutBySkillsInfo(region_code=None):
             "class": "vacancy-serp"})
 
         base_vacancy_url = base_url + "/vacancy/"
-        job_URLS = [base_vacancy_url + str(link.get("href")).split("=")[-1] for link in
-                    job_link_area.select('div.vacancy-serp-item > a')]
+        job_URLS = [base_vacancy_url + str(link.get("href")).split("vacancy/")[-1].split("?")[0] for link in
+                    job_link_area.select('div.vacancy-serp-item__title > a')]
 
         for j in xrange(0, len(job_URLS)):
             final_description = text_cleaner(job_URLS[j])
