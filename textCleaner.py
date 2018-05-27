@@ -7,7 +7,9 @@ from nltk.corpus import stopwords  # Filter out stopwords, such as 'the', 'or', 
 
 def text_cleaner(website):
     try:
-        site = urllib2.urlopen(website).read()
+        site_request = urllib2.Request(website, headers={"Accept": "text/html",
+                                                         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)    AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36"})
+        site = urllib2.urlopen(site_request).read()
     except:
         return
 

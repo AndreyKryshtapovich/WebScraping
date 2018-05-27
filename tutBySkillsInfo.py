@@ -25,8 +25,11 @@ def tutBySkillsInfo(region_code=None):
 
     base_url = 'https://jobs.tut.by'
 
+    request = urllib2.Request(final_site, headers={"Accept": "text/html",
+                                                   "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)    AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36"})
+
     try:
-        html = urllib2.urlopen(final_site).read()
+        html = urllib2.urlopen(request).read()
     except:
         'Could not acces jobs.tut.by. Exiting . . .'
         return
@@ -50,14 +53,17 @@ def tutBySkillsInfo(region_code=None):
     for page_number in xrange(num_pages):
         print 'Getting page', page_number + 1
         current_page = ''.join([final_site, '&page=', str(page_number), '&items_on_page=10'])
-        html_page = urllib2.urlopen(current_page).read()
+        page_request = urllib2.Request(current_page, headers={"Accept": "text/html",
+                                                              "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)    AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36"})
+        html_page = urllib2.urlopen(page_request).read()
         page_obj = BeautifulSoup(html_page, "html.parser")
         job_link_area = page_obj.find("div", {
             "class": "vacancy-serp"})
 
         base_vacancy_url = base_url + "/vacancy/"
+
         job_URLS = [base_vacancy_url + str(link.get("href")).split("vacancy/")[-1].split("?")[0] for link in
-                    job_link_area.select('div.vacancy-serp-item__title > a')]
+                    job_link_area.select('div.search-item-name > a')]
 
         for j in xrange(0, len(job_URLS)):
             final_description = text_cleaner(job_URLS[j])

@@ -26,7 +26,10 @@ def skills_info(city=None, state=None):
     base_url = 'http://www.indeed.com'
 
     try:
-        html = urllib2.urlopen(final_site).read()
+        request = urllib2.Request(final_site, headers={"Accept": "text/html",
+                                                       "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)    AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36"})
+
+        html = urllib2.urlopen(request).read()
     except:
         'That city/state combination did not have any jobs. Exiting . . .'
         return
@@ -73,7 +76,7 @@ def skills_info(city=None, state=None):
                 1)  # in order not to get a capcha
 
     print 'Done with collecting the job postings!'
-    #print 'There were', len(job_descriptions), 'jobs successfully found.'
+    # print 'There were', len(job_descriptions), 'jobs successfully found.'
 
     doc_frequency = Counter()
     [doc_frequency.update(item) for item in job_descriptions]
