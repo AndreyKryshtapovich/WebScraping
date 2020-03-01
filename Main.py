@@ -1,6 +1,6 @@
 from tutBySkillsInfo import tutBySkillsInfo
 
-tutBySkillsInfo(1)
+tutBySkillsInfo(1002)
 # skills_info(city='Boston', state='MA')
 
 

@@ -35,7 +35,7 @@ def tutBySkillsInfo(region_code=None):
         return
     soup = BeautifulSoup(html, "html.parser")
 
-    num_jobs_area = soup.find("h1", attrs={"class": "header"}).get_text().encode(
+    num_jobs_area = soup.find("h1", attrs={"class": "bloko-header-1"}).get_text().encode(
         'utf-8')
 
     job_numbers = re.findall('\d+', num_jobs_area)
@@ -63,7 +63,8 @@ def tutBySkillsInfo(region_code=None):
         base_vacancy_url = base_url + "/vacancy/"
 
         job_URLS = [base_vacancy_url + str(link.get("href")).split("vacancy/")[-1].split("?")[0] for link in
-                    job_link_area.select('div.search-item-name > a')]
+                    job_link_area.select('span.g-user-content > a')]
+        #'div.search-item-name > a'
 
         for j in xrange(0, len(job_URLS)):
             final_description = text_cleaner(job_URLS[j])
@@ -113,5 +114,6 @@ def tutBySkillsInfo(region_code=None):
 
     final_plot.set_ylabel('Percentage Appearing in Job Ads')
     fig = final_plot.get_figure()
-    plt.show(fig)
+    #plt.show(fig)
+    plt.show()
     return fig, final_frame
