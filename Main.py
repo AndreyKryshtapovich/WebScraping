@@ -1,3 +1,4 @@
+from skillsInfo import skills_info
 from tutBySkillsInfo import tutBySkillsInfo
 
 tutBySkillsInfo(1002)

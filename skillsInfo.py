@@ -35,7 +35,7 @@ def skills_info(city=None, state=None):
         return
     soup = BeautifulSoup(html, "html.parser")
 
-    num_jobs_area = soup.find(id='searchCount').string.encode('utf-8')
+    num_jobs_area = soup.find(id='searchCountPages').string.encode('utf-8')
 
     job_numbers = re.findall('\d+', num_jobs_area)
 
@@ -116,5 +116,5 @@ def skills_info(city=None, state=None):
 
     final_plot.set_ylabel('Percentage Appearing in Job Ads')
     fig = final_plot.get_figure()
-    plt.show(fig)
+    plt.show()
     return fig, final_frame
