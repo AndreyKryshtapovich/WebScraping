@@ -10,12 +10,12 @@ from bs4 import BeautifulSoup
 from textCleaner import text_cleaner
 
 
-def tutBySkillsInfo(region_code=None):
+def tutBySkillsInfo(region_code=None, job=""):
     # final_job = 'data+scientist'
     # final_job = 'java+developer'
     # final_job = 'software+engineer'
-    final_job = 'software+engineer'
-    region = str(region_code)
+    final_job = str(job.replace(" ", "+"))
+    region = str(int(region_code))
     if region_code is not None and region.isdigit():
         final_site_list = ['https://jobs.tut.by/search/vacancy?text=', final_job, '&area=', region]
     else:

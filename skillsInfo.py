@@ -10,8 +10,8 @@ from bs4 import BeautifulSoup
 from textCleaner import text_cleaner
 
 
-def skills_info(city=None, state=None):
-    final_job = 'data+scientist'
+def skills_info(city=None, state=None, job=""):
+    final_job = str(job.replace(" ", "+"))
 
     if city is not None:
         final_city = city.split()
