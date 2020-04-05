@@ -2,6 +2,7 @@ import re
 import urllib2
 from collections import Counter
 from time import sleep
+import datetime
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -105,6 +106,15 @@ def skills_info(city=None, state=None, job=""):
 
     final_frame = pd.DataFrame(overall_total_skills.items(),
                                columns=['Term', 'NumPostings'])
+
+    final_frame['NumOfVacancies'] = len(job_descriptions)
+    final_frame['Region'] = city + '_' + state
+    final_frame['Date'] = datetime.date.today().isoformat()
+    file_name = 'jobs_frame_' + datetime.date.today().isoformat() + "_" + city + '_' + state
+    final_frame.to_json('d:\\Magister\\WebScraping\\data\\' + file_name + '.json', orient='table')
+    final_frame.drop('NumOfVacancies', 1, inplace=True)
+    final_frame.drop('Region', 1, inplace=True)
+    final_frame.drop('Date', 1, inplace=True)
 
     final_frame.NumPostings = (final_frame.NumPostings) * 100 / len(
         job_descriptions)

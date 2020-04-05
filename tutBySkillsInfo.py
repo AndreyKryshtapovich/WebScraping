@@ -1,3 +1,5 @@
+import datetime
+
 import re
 import urllib2
 from collections import Counter
@@ -103,6 +105,26 @@ def tutBySkillsInfo(region_code=None, job=""):
 
     final_frame = pd.DataFrame(overall_total_skills.items(),
                                columns=['Term', 'NumPostings'])
+    region_dict = {
+        '16': 'Belarus',
+        '1002': 'Minsk',
+        '1003': 'Gomel',
+        '1005': 'Vitebsk',
+        '1007': 'Brest',
+        '1006': 'Hrodno',
+        '1004': 'Mogilev',
+        '115': 'Kiev',
+        '1': 'Moscow',
+        '113': 'Russia',
+    }
+    final_frame['NumOfVacancies'] = len(job_descriptions)
+    final_frame['Region'] = region_dict[region]
+    final_frame['Date'] = datetime.date.today().isoformat()
+    file_name = 'jobs_frame_' + datetime.date.today().isoformat() +"_" + region_dict[region]
+    final_frame.to_json('d:\\Magister\\WebScraping\\data\\' + file_name + '.json', orient='table')
+    final_frame.drop('NumOfVacancies', 1, inplace=True)
+    final_frame.drop('Region', 1, inplace=True)
+    final_frame.drop('Date', 1, inplace=True)
 
     final_frame.NumPostings = (final_frame.NumPostings) * 100 / len(
         job_descriptions)

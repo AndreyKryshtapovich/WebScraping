@@ -1,4 +1,8 @@
+import schedule as schedule
+
+from PlotBySkill import plotBySkill
 from skillsInfo import skills_info
+from sumPlot import sumPlot
 from tutBySkillsInfo import tutBySkillsInfo
 from jproperties import Properties
 
@@ -6,17 +10,24 @@ props = Properties()
 with open("system.properties", "rb") as f:
     props.load(f, "utf-8")
 
-target_resource = props.get("targetResource").data
-if target_resource == "tutBy":
-    region_code = props.get("tutBy.cityCode").data
-    target_job = props.get("tutBy.targetJob").data
-    tutBySkillsInfo(region_code, target_job)
-else:
-    if target_resource == "indeed":
-        city = props.get("indeed.city").data
-        state = props.get("indeed.state").data
-        target_job = props.get("indeed.targetJob").data
-        skills_info(city, state, target_job)
+def scraping_job():
+    target_resource = props.get("targetResource").data
+    if target_resource == "tutBy":
+        region_code = props.get("tutBy.cityCode").data
+        target_job = props.get("tutBy.targetJob").data
+        tutBySkillsInfo(region_code, target_job)
+    else:
+        if target_resource == "indeed":
+            city = props.get("indeed.city").data
+            state = props.get("indeed.state").data
+            target_job = props.get("indeed.targetJob").data
+            skills_info(city, state, target_job)
+
+
+start_time = props.get("system.startTime").data
+schedule.every().day.at(str(start_time)).do(scraping_job)
+while True:
+    schedule.run_pending()
 
 # Right now we are searching for data scientist jod, it's hardcoded for now in functions.
 
