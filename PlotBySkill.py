@@ -34,7 +34,7 @@ def plotBySkill():
 
     final_frame = final_frame.from_dict(final_dict)
     final_frame.NumPostings = (final_frame.NumPostings) * 100 / num_of_all_vacancies
-    final_frame.sort_values(by='NumPostings', ascending=False, inplace=True)
+    final_frame.sort_values(by='Date', ascending=True, inplace=True)
 
     final_plot = final_frame.plot(x='Date', y='NumPostings', kind='bar', legend=None,
                                   title='Percentage of ' + final_job.replace('+', ' ') + ' Job Ads with a Key Skill, ', rot=0)

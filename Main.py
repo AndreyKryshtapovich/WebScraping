@@ -1,6 +1,7 @@
 import schedule as schedule
 
 from PlotBySkill import plotBySkill
+from jsonGenerator import jsonGenerator
 from skillsInfo import skills_info
 from sumPlot import sumPlot
 from tutBySkillsInfo import tutBySkillsInfo
